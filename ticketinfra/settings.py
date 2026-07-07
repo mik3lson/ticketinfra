@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,6 +85,12 @@ DATABASES = {
     }
 }
 
+
+# NOMBA SETTINGS
+NOMBA_BASE_URL = os.getenv('NOMBA_BASE_URL')
+NOMBA_ACCOUNT_ID = os.getenv('NOMBA_ACCOUNT_ID')
+NOMBA_CLIENT_ID = os.getenv('NOMBA_CLIENT_ID')
+NOMBA_CLIENT_SECRET = os.getenv('NOMBA_CLIENT_SECRET')
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

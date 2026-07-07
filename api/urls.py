@@ -10,4 +10,7 @@ urlpatterns = [
     path('events/', views.event_views),
     path('events/<int:event_id>/ticket-types/', views.ticket_type_views),
     path('orders/', views.create_order),
+    path('payments/nomba/webhook/', views.NombaWebhookView),
 ]
+
+

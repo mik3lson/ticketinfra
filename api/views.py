@@ -163,3 +163,16 @@ def create_order(request):
                 Ticket.objects.create(order=order, ticket_type=ticket_type)
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
+
+
+
+@api_view(['POST'])
+def NombaWebhookView(request):
+    # Handle the webhook payload
+    payload = request.data
+    # Process the payload as needed
+    # For example, you can log it or update your database
+    print("Received Nomba webhook:", payload)
+    
+    # Return a response to acknowledge receipt of the webhook
+    return Response({"message": "Webhook received successfully."}, status=200)
