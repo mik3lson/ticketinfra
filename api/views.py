@@ -156,6 +156,8 @@ def create_order(request):
             ticket_type.save()
 
             #hold tickets for 10 minutes until payment is completed
+            #  check if payment is completed
+            # send email to user with ticket details
             order.created_at = timezone.now()
             for _ in range(order.quantity):
                 Ticket.objects.create(order=order, ticket_type=ticket_type)
