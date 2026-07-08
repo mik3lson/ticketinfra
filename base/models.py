@@ -2,12 +2,15 @@ from django.db import models
 
 # Create your models here.
 
-class Business(models.Model):
-    bussiness_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
+class Organizer(models.Model):
+    organizer_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, null= False)
+    email = models.EmailField(max_length=100, unique=True, null=False)
     password = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
+    nomba_subaccount_id = models.CharField(max_length=100, null=True, blank=True)
+    nomba_subaccount_ref = models.CharField(max_length=100, null=True, blank=True)
+
 
     def __str__(self):
         return f"{self.name} - {self.email}"
@@ -15,26 +18,26 @@ class Business(models.Model):
 
 class Apikey(models.Model):
     api_key_id = models.AutoField(primary_key=True)
-    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
     key = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.business.name} - {self.key}"
+        return f"{self.organizer.name} - {self.key}"
     
 
 
 class Event(models.Model):
     event_id = models.AutoField(primary_key=True)
-    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField()
     date = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name} - {self.business.name}"
+        return f"{self.name} - {self.organizer.name}"
     
 
 class TicketType(models.Model):

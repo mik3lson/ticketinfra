@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from base.models import Business, Apikey, Event, TicketType, Order, Ticket
-from .serializers import BusinessSerializer, ApikeySerializer, EventSerializer, TicketTypeSerializer, OrderSerializer, TicketSerializer
+from base.models import Organizer, Apikey, Event, TicketType, Order, Ticket
+from .serializers import OrganizerSerializer, ApikeySerializer, EventSerializer, TicketTypeSerializer, OrderSerializer, TicketSerializer
 from django.db import transaction
 from django.utils import timezone
 from django.db import models
@@ -15,27 +15,27 @@ def home(response):
     return Response({"TicketInfra API"})
 
 
-#get all businesses
-def get_businesses(request):
-    businesses = Business.objects.all()
-    serializer = BusinessSerializer(businesses, many=True)
+#get all Organizer
+def get_organizer(request):
+    organizer = Organizer.objects.all()
+    serializer = OrganizerSerializer(organizer, many=True)
     return Response(serializer.data)
 
 
-#get business by id
+#get organizer by id
 @api_view(['GET'])
-def get_business_by_id(request, business_id):
+def get_organizer_by_id(request, organizer_id):
     try:
-        business = Business.objects.get(id=business_id)
-    except Business.DoesNotExist:
-        return Response({"error": "Business not found"}, status=404)
+        organizer = Organizer.objects.get(id=organizer.id)
+    except Organizer.DoesNotExist:
+        return Response({"error": "Organiser not found"}, status=404)
     
-    serializer = BusinessSerializer(business)
+    serializer = OrganizerSerializer(organizer)
     return Response(serializer.data)
 
-#create a new business
-def create_business(request):
-    serializer = BusinessSerializer(data=request.data)
+#create a new organizer
+def create_organizer(request):
+    serializer = OrganizerSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
@@ -44,11 +44,11 @@ def create_business(request):
 
 
 @api_view(['GET', 'POST'])
-def business_views(request):
+def organizer_views(request):
     if request.method == 'POST':
-        return create_business(request)
+        return create_organizer(request)
     elif request.method == 'GET':
-        return get_businesses(request)
+        return get_organizer(request)
 
 
 
@@ -65,10 +65,10 @@ def create_event(request):
     return Response(serializer.errors, status=400)
 
 
-#list all events for a business
+#list all events for a organizer
 @api_view(['GET'])
-def list_events_by_id(request, business_id):
-    events = Event.objects.filter(business_id=business_id)
+def list_events_by_id(request, organizer_id):
+    events = Event.objects.filter(organizer_id=organizer_id)
     serializer = EventSerializer(events, many=True)
     return Response(serializer.data, status=200)
 

@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from base.models import Business, Apikey, Event, TicketType, Order, Ticket
+from base.models import Organizer, Apikey, Event, TicketType, Order, Ticket
 
 
 
-class BusinessSerializer(serializers.ModelSerializer):
+class OrganizerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Business
+        model = Organizer
         fields = '__all__'
 
 class ApikeySerializer(serializers.ModelSerializer):
@@ -36,4 +36,3 @@ class TicketSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = '__all__'
 
-        
