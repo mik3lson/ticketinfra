@@ -29,10 +29,11 @@ SECRET_KEY = 'django-insecure-5pe=9@59*d&y1p*jnak2fd*fxs6f-qq$*yliroae%40o$s4i20
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'https://ticketinfra.dev/'
+    'https://ticketinfra.dev/',
     '157.230.178.218',
     'localhost',
-    '127.0.0.1'
+    '127.0.0.1',
+    'ticketinfra.dev',
 ]
 
 
